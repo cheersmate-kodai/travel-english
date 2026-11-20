@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>旅行英語フレーズ帳</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="theme-color" content="#031147">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap">
+<style>
+/* Layout: app shell — navy top bar + bottom tabs on phone, navy side nav on desktop. Each scene = hero card, sticky chip row, phrase cards (2 cols on desktop). */
+:root{
+  --bg:#eef2f8; --surface:#ffffff; --ink:#101a38; --muted:#5b6886; --line:#dde4f0; --soft:#f4f7fc;
+  --navy:#031147; --sky:#2f86d6; --sky-soft:#e6f0fb; --yellow:#fdc805; --yellow-soft:#fff4c4; --gold:#946f00;
+  --ok:#2f7a47; --ok-soft:#e2f2e6; --staff:#6a5acd; --staff-soft:#eeebfb;
+  --btn:#031147; --btn-ink:#ffffff; --mark:#fff0a8;
+  --font:"Zen Kaku Gothic New","Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;
+  --en:"Barlow","Helvetica Neue",Arial,sans-serif;
+  --cond:"Barlow Condensed","Barlow",Arial,sans-serif;
+  --r:16px; --topH:56px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0a1022; --surface:#121a31; --ink:#e8edf8; --muted:#9aa8c6; --line:#26324f; --soft:#18213b;
+  --navy:#c3d1f5; --sky:#6fb0f0; --sky-soft:#16294a; --yellow-soft:#3a3010; --gold:#f5cf3c;
+  --ok:#8fd19e; --ok-soft:#173123; --staff:#b7acf5; --staff-soft:#262347;
+  --btn:#fdc805; --btn-ink:#031147; --mark:#5a4a0c; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0a1022; --surface:#121a31; --ink:#e8edf8; --muted:#9aa8c6; --line:#26324f; --soft:#18213b;
+  --navy:#c3d1f5; --sky:#6fb0f0; --sky-soft:#16294a; --yellow-soft:#3a3010; --gold:#f5cf3c;
+  --ok:#8fd19e; --ok-soft:#173123; --staff:#b7acf5; --staff-soft:#262347;
+  --btn:#fdc805; --btn-ink:#031147; --mark:#5a4a0c; color-scheme:dark}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.6}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+svg{flex:none}
+
+/* ---- shell ---- */
+.app{min-height:100dvh;display:grid;grid-template-columns:1fr}
+.side{display:none}
+.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:10px;height:calc(var(--topH) + env(safe-area-inset-top,0px));
+  padding:env(safe-area-inset-top,0px) max(16px,env(safe-area-inset-right,0px)) 0 max(16px,env(safe-area-inset-left,0px));background:#031147;color:#fff}
+.brand{display:flex;align-items:center;gap:8px;font-weight:900;font-size:18px;white-space:nowrap}
+.brand b{color:#fdc805;font-family:var(--en);font-weight:700}
+.brand .logo{width:30px;height:30px;border-radius:9px;background:#fdc805;display:grid;place-items:center;color:#031147}
+.brand .logo svg{width:18px;height:18px}
+.srch{margin-left:auto;position:relative;flex:1;max-width:260px;min-width:0}
+.srch input{width:100%;height:38px;border-radius:10px;border:0;background:rgba(255,255,255,.12);color:#fff;padding:0 12px 0 34px;font-size:14px}
+.srch input::placeholder{color:#b9c6e6}
+.srch svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:#b9c6e6}
+main{padding:14px max(16px,env(safe-area-inset-right,0px)) calc(96px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));max-width:1080px;width:100%;margin:0 auto;min-width:0}
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:30;display:grid;grid-template-columns:repeat(4,1fr);background:var(--surface);border-top:1px solid var(--line);
+  padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px))}
+.tab{border:0;background:none;display:grid;justify-items:center;gap:1px;padding:6px 0;font-size:11.5px;font-weight:700;color:var(--muted);cursor:pointer;border-radius:12px;text-decoration:none}
+.tab svg{width:24px;height:24px}
+.tab[aria-current="page"]{color:var(--ink);background:var(--soft)}
+@media (min-width:860px){
+  .app{grid-template-columns:248px minmax(0,1fr)}
+  .top,.tabbar{display:none}
+  .side{display:flex;flex-direction:column;gap:4px;position:sticky;top:0;height:100dvh;overflow:auto;background:#031147;color:#fff;
+    padding:calc(24px + env(safe-area-inset-top,0px)) 14px 24px max(14px,env(safe-area-inset-left,0px))}
+  .side .brand{margin:0 6px 18px;font-size:20px}
+  .side .srch{margin:0 0 14px;max-width:none;flex:none}
+  .nav{display:flex;align-items:center;gap:10px;border:0;background:none;color:#b9c6e6;font-weight:700;font-size:14.5px;padding:10px 12px;border-radius:12px;text-decoration:none}
+  .nav svg{width:20px;height:20px}
+  .nav[aria-current="page"]{background:rgba(255,255,255,.1);color:#fff}
+  .nav[aria-current="page"] svg{color:#fdc805}
+  .nav .c{margin-left:auto;font:600 12px var(--en);color:#7f8fb8}
+  .subnav{display:grid;gap:1px;margin:2px 0 8px 22px;border-left:1px solid rgba(255,255,255,.12);padding-left:8px}
+  .subnav a{color:#9fb0d8;font-size:12.5px;text-decoration:none;padding:4px 8px;border-radius:8px}
+  .subnav a:hover{color:#fff;background:rgba(255,255,255,.06)}
+  .side .foot{margin-top:auto;font-size:11.5px;color:#7f8fb8;padding:12px 8px 0;line-height:1.6}
+  main{padding:26px 32px 60px}
+  .chips{top:env(safe-area-inset-top,0px)!important}
+}
+
+/* ---- hero ---- */
+.hero{position:relative;overflow:hidden;border-radius:22px;padding:18px 20px;color:#fff;background:linear-gradient(135deg,#031147 0%,#0d2468 60%,#173c8e 100%);
+  display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center}
+.hero::after{content:"";position:absolute;right:-60px;top:-70px;width:220px;height:220px;border-radius:50%;border:26px solid rgba(255,255,255,.05)}
+.ring{width:92px;height:92px;position:relative}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring .c{position:absolute;inset:0;display:grid;place-content:center;text-align:center;line-height:1}
+.ring .c b{font:700 30px/1 var(--en)}
+.ring .c small{font:600 11px/1.5 var(--en);color:#b9c6e6;letter-spacing:.06em}
+.hero .k{font:700 11px/1 var(--cond);letter-spacing:.2em;color:#fdc805}
+.hero h1{margin:4px 0 2px;font-size:22px;font-weight:900;line-height:1.3}
+.hero p{margin:0;font-size:12.5px;color:#cbd6f0;line-height:1.6;position:relative;z-index:1}
+.hero .meta{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:8px;font-size:12.5px;color:#dfe7fb;position:relative;z-index:1}
+.hero .meta b{color:#fdc805;font:700 16px var(--en);margin-right:2px}
+
+/* ---- chips + toolbar ---- */
+.chips{position:sticky;top:calc(var(--topH) + env(safe-area-inset-top,0px));z-index:10;background:var(--bg);margin:0 -4px;padding:12px 4px 10px;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chips a{flex:none;font-size:13px;font-weight:700;padding:7px 13px;border-radius:999px;background:var(--surface);border:1.5px solid var(--line);color:var(--ink);text-decoration:none;white-space:nowrap}
+.chips a.on{background:var(--btn);color:var(--btn-ink);border-color:transparent}
+.tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:2px 0 4px}
+.seg{display:inline-flex;background:var(--surface);border:1.5px solid var(--line);border-radius:12px;padding:3px;gap:2px}
+.seg button{border:0;background:none;border-radius:9px;padding:6px 11px;font-size:12.5px;font-weight:700;color:var(--muted);cursor:pointer;white-space:nowrap}
+.seg button[aria-pressed="true"]{background:var(--btn);color:var(--btn-ink)}
+.tog{display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--line);background:var(--surface);border-radius:12px;padding:6px 12px;font-size:12.5px;font-weight:700;cursor:pointer}
+.tog i{width:30px;height:18px;border-radius:9px;background:var(--line);position:relative;transition:background .2s}
+.tog i::after{content:"";position:absolute;left:2px;top:2px;width:14px;height:14px;border-radius:50%;background:#fff;transition:left .2s}
+.tog[aria-pressed="true"] i{background:var(--sky)}
+.tog[aria-pressed="true"] i::after{left:14px}
+
+/* ---- phrase cards ---- */
+.sub{scroll-margin-top:calc(var(--topH) + 70px)}
+@media (min-width:860px){.sub{scroll-margin-top:70px}}
+.sec-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:24px 2px 10px}
+.sec-h h2{margin:0;font-size:17px;font-weight:900}
+.sec-h span{font:600 12px var(--en);color:var(--muted)}
+.cards{display:grid;gap:12px}
+@media (min-width:980px){.cards{grid-template-columns:1fr 1fr;align-items:start}}
+.card{background:var(--surface);border-radius:var(--r);box-shadow:0 1px 2px rgba(3,17,71,.06),0 6px 18px rgba(3,17,71,.05);padding:14px 14px 12px;min-width:0;position:relative}
+.card.learned{opacity:.62}
+.card .hd{display:flex;align-items:flex-start;gap:10px}
+.who{flex:none;font-size:10.5px;font-weight:900;padding:3px 8px;border-radius:999px;line-height:1.4;margin-top:2px;white-space:nowrap}
+.who.y{background:var(--sky-soft);color:var(--sky)}
+.who.s{background:var(--staff-soft);color:var(--staff)}
+.jp{font-weight:700;font-size:15px;line-height:1.5;flex:1;min-width:0}
+.chk{flex:none;width:30px;height:30px;border-radius:50%;border:1.5px solid var(--line);background:none;display:grid;place-items:center;cursor:pointer;color:transparent;margin:-3px -3px 0 0}
+.chk svg{width:16px;height:16px}
+.chk[aria-pressed="true"]{background:var(--ok);border-color:var(--ok);color:#fff}
+.ens{display:grid;gap:4px;margin-top:8px}
+.en{display:flex;align-items:center;gap:8px;min-width:0}
+.en .l{flex:none;font:700 10.5px/1 var(--cond);letter-spacing:.08em;color:var(--muted);width:12px}
+.en .t{font:600 17.5px/1.4 var(--en);min-width:0;flex:1;letter-spacing:.005em}
+.en .t mark,.ans mark{background:var(--mark);color:inherit;border-radius:4px;padding:0 3px}
+.spk{flex:none;width:32px;height:32px;border-radius:10px;border:0;background:var(--soft);color:var(--sky);display:grid;place-items:center;cursor:pointer}
+.spk svg{width:16px;height:16px}
+.spk.on{background:var(--sky);color:#fff}
+.quiz .en .t{filter:blur(6px);cursor:pointer;user-select:none;transition:filter .2s}
+.quiz .en.show .t{filter:none}
+.ans{margin-top:10px;background:var(--yellow-soft);border-radius:12px;padding:10px 12px 8px}
+.ans .h{display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:900;color:var(--gold);margin-bottom:4px}
+.ans .h svg{width:14px;height:14px}
+.ans .r{display:flex;align-items:center;gap:8px;padding:3px 0;min-width:0}
+.ans .r div{flex:1;min-width:0}
+.ans .r b{display:block;font:600 15.5px/1.4 var(--en)}
+.ans .r small{display:block;font-size:11.5px;color:var(--muted);line-height:1.4}
+.ans .spk{background:rgba(255,255,255,.55);color:var(--gold);width:28px;height:28px}
+.empty{background:var(--surface);border-radius:var(--r);padding:28px 18px;text-align:center;color:var(--muted)}
+.empty b{display:block;font-size:16px;color:var(--ink);margin-bottom:4px}
+.legend{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.legend div{background:var(--surface);border-radius:12px;padding:10px 12px;font-size:12px;color:var(--muted);line-height:1.5}
+.legend .who{display:inline-block;margin:0 0 4px}
+.legend b{display:block;color:var(--ink);font-size:13px}
+.jp .who{display:table;margin:0 0 5px}
+@media (max-width:600px){
+  .hero{padding:14px 16px;gap:14px;border-radius:18px}
+  .ring{width:70px;height:70px}
+  .ring .c b{font-size:23px}
+  .ring .c small{font-size:9.5px}
+  .hero h1{font-size:19px;margin:2px 0 0}
+  .hero p{display:none}
+  .hero .meta{margin-top:4px;gap:2px 10px;font-size:12px}
+  .hero .meta b{font-size:15px}
+  .legend{grid-template-columns:1fr;gap:0;background:var(--surface);border-radius:12px;padding:4px 0;margin-top:10px}
+  .legend div{display:flex;align-items:center;gap:8px;padding:6px 12px;background:none;font-size:12px}
+  .legend .who{margin:0}
+  .legend b{display:none}
+  .tools{flex-wrap:nowrap;gap:6px;overflow-x:auto;scrollbar-width:none;min-width:0}
+  .tools::-webkit-scrollbar{display:none}
+  .seg{flex:none}
+  .seg button{padding:6px 7px;font-size:12px}
+  .tog{flex:none;padding:6px 9px;gap:6px;font-size:12px;white-space:nowrap}
+  .tog i{width:26px;height:16px}
+  .tog i::after{width:12px;height:12px}
+  .tog[aria-pressed="true"] i::after{left:12px}
+  .card{padding:13px 12px 11px}
+  .en .t{font-size:17px}
+}
+
+/* ---- practice ---- */
+.flash{background:var(--surface);border-radius:22px;box-shadow:0 6px 24px rgba(3,17,71,.08);padding:22px 20px;margin-top:14px;display:grid;gap:14px;max-width:640px}
+.flash .meta{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--muted)}
+.flash .q{font-size:21px;font-weight:900;line-height:1.5;text-wrap:balance}
+.flash .scene{font-size:12px;color:var(--muted)}
+.flash .a{background:var(--soft);border-radius:14px;padding:12px 14px;display:grid;gap:6px;min-height:72px;align-content:center}
+.flash .a .en .t{font-size:19px}
+.flash .hidden{color:var(--muted);font-size:13px;text-align:center}
+.btn{appearance:none;border:0;border-radius:12px;min-height:50px;padding:10px 14px;font-weight:900;font-size:15px;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;text-align:center}
+.btn svg{width:20px;height:20px}
+.btn.go{background:var(--btn);color:var(--btn-ink)}
+.btn.yes{background:var(--yellow);color:#031147}
+.btn.no{background:var(--soft);color:var(--ink);font-weight:700}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.bar{height:8px;border-radius:99px;background:var(--soft);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--yellow);border-radius:99px;transition:width .4s}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="app">
+  <aside class="side" aria-label="メニュー">
+    <div class="brand"><span class="logo"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z"/></svg></span>Trip <b>English</b></div>
+    <label class="srch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q1" type="search" placeholder="日本語・英語でさがす" aria-label="フレーズをさがす"></label>
+    <nav id="sidenav"></nav>
+    <div class="foot">🔊 で発音が聞けます。<br>✓ を押すと「覚えた」に入ります。</div>
+  </aside>
+  <div style="min-width:0">
+    <header class="top">
+      <div class="brand"><span class="logo"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z"/></svg></span>Trip <b>English</b></div>
+      <label class="srch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q2" type="search" placeholder="さがす" aria-label="フレーズをさがす"></label>
+    </header>
+    <main id="view"></main>
+  </div>
+  <nav class="tabbar" id="tabbar" aria-label="場面"></nav>
+</div>
+
+<script>
+/* item: [jp, enA, enB?, answers?]  answers: [[en, jp], ...]   {x} = 自分の情報に置き換える所 */
+const D=[
+{id:"airport",name:"空港",en:"AIRPORT",icon:"plane",lead:"チェックインから入国審査、荷物の受け取りまで。審査官の質問には、そのまま使える答え方を付けています。",subs:[
+ ["チェックイン・荷物預け",[
+  ["s",[
+   ["パスポートを見せていただけますか？","Can I see your passport, please?","May I have your passport?",[["Here you are.","どうぞ"],["Sure, here it is.","はい、こちらです"]]],
+   ["どちらまで行かれますか？","Where are you flying to today?","What's your final destination?",[["To {Los Angeles}.","〇〇までです"],["I'm going to {Sydney}.","〇〇に行きます"]]],
+   ["予約番号を教えていただけますか？","Can I have your booking reference?","Do you have your confirmation number?",[["Here it is.","これです（画面を見せる）"],["It's {ABC123}.","〇〇です"]]],
+   ["窓側と通路側、どちらの席がよろしいですか？","Would you like a window or an aisle seat?","Window or aisle?",[["Window, please.","窓側でお願いします"],["Aisle, please.","通路側でお願いします"]]],
+   ["お席の希望はありますか？","Do you have a seat preference?","Any preference for seating?",[["Window, please.","窓側でお願いします"],["No, anywhere is fine.","どこでも大丈夫です"]]],
+   ["預ける荷物はありますか？","Do you have any bags to check?","Are you checking any bags today?",[["Yes, one bag.","はい、1つです"],["No, just carry-on.","いいえ、手荷物だけです"]]],
+   ["荷物はいくつ預けますか？","How many bags are you checking?","How many pieces are you checking in?",[["Just one.","1つです"],["Two bags.","2つです"]]],
+   ["このスーツケースはお客様のものですか？","Is this your suitcase?","Is this bag yours?",[["Yes, it's mine.","はい、私のです"]]],
+   ["荷物の中に壊れやすいものは入っていますか？","Is there anything fragile in your bag?","Anything fragile in there?",[["No, nothing.","いいえ、ありません"],["Yes, a {bottle of wine}.","はい、〇〇が入っています"]]],
+   ["荷物の中にリチウム電池やモバイルバッテリーは入っていますか？","Do you have any lithium batteries or power banks in your checked bag?","Any power banks or spare batteries in there?",[["No, it's in my carry-on.","いいえ、手荷物に入れています"],["No, nothing.","いいえ、ありません"]]],
+   ["機内持ち込みの荷物はいくつありますか？","How many carry-on bags do you have?","How many bags are you taking on board?",[["Just one.","1つです"],["One bag and a backpack.","バッグとリュックの2つです"]]],
+   ["荷物の重さは規定内です。","Your bag is within the weight limit.","You're all good on weight.",[["Great, thank you.","よかった、ありがとう"]]],
+   ["最終目的地まで荷物を預けますか？","Would you like your bags checked through to your final destination?","Do you want them checked all the way through?",[["Yes, please.","はい、お願いします"],["Can you check it to {Tokyo}?","〇〇まで預けられますか？"]]],
+   ["乗り継ぎ先で荷物を受け取る必要があります。","You'll need to pick up your bags at your connecting airport.","You'll have to collect your bags and recheck them at your layover.",[["OK. Where do I check it again?","わかりました。どこで預け直しますか？"],["OK, thank you.","わかりました、ありがとう"]]],
+   ["帰りの航空券はお持ちですか？","Do you have a return ticket?","Do you have an onward or return ticket?",[["Yes, here it is.","はい、これです"],["Yes, I fly back on {May 10}.","はい、〇日に帰ります"]]]]],
+  ["y",[
+   ["荷物を預けたいです。","I'd like to check this bag.","I want to check in my suitcase."],
+   ["この荷物を預けてもいいですか？","Can I check this bag?"],
+   ["荷物は最終目的地まで運ばれますか？","Will my bag go to my final destination?","Is my bag checked through to 〇〇?"],
+   ["乗り継ぎ先で荷物を受け取る必要はありますか？","Do I need to pick up my bag at my transfer?"],
+   ["預け荷物の重量制限は何kgですか？","What is the weight limit for checked bags?"],
+   ["機内持ち込みの重量制限は何kgですか？","What is the weight limit for carry-on bags?"],
+   ["この荷物を機内に持ち込めますか？","Can I take this bag on the plane?","Can I carry this on?"],
+   ["荷物が重量オーバーした場合、追加料金はいくらですか？","How much is the fee if my bag is overweight?","How much extra for an overweight bag?"],
+   ["通路側の席に変更できますか？","Can I change to an aisle seat?"],
+   ["隣の席が空いている場所はありますか？","Do you have a seat with an empty seat next to it?"],
+   ["窓側の席に変更できますか？","Can I change to a window seat?"],
+   ["搭乗券をもう一度印刷してもらえますか？","Can you print my boarding pass again?"]]]]],
+ ["保安検査",[
+  ["s",[
+   ["パソコンをバッグから出してください。","Please take your laptop out of your bag.","Laptops out of the bag, please.",[["OK.","わかりました"],["I have a tablet too. Same?","タブレットもあります。同じですか？"]]],
+   ["液体物を取り出してください。","Please take out any liquids.","Liquids out, please.",[["OK. Here they are.","はい、これです"]]],
+   ["ポケットの中身を出してください。","Please empty your pockets.","Everything out of your pockets, please.",[["OK.","わかりました"],["Just my phone.","携帯だけです"]]],
+   ["上着を脱いでください。","Please take off your jacket.","Jackets off, please.",[["OK.","わかりました"]]],
+   ["靴を脱いでください。","Please take off your shoes.","Shoes off, please.",[["OK.","わかりました"]]],
+   ["金属製品を身につけていますか？","Are you wearing anything metal?","Any metal on you?",[["No.","いいえ"],["Just my watch.","時計だけです"]]],
+   ["モバイルバッテリーを持っていますか？","Do you have a power bank?","Any power banks in your bag?",[["Yes, it's in my bag.","はい、バッグの中です"],["No.","いいえ"]]],
+   ["このバッグはあなたのものですか？","Is this your bag?","Is this bag yours?",[["Yes, it's mine.","はい、私のです"]]],
+   ["バッグの中に何が入っていますか？","What's in your bag?","Can you tell me what's in here?",[["Just clothes and my laptop.","服とパソコンだけです"],["Some souvenirs.","お土産です"]]],
+   ["もう一度検査を受けてください。","Could you walk through again, please?","We need to check you again.",[["OK.","わかりました"]]]]],
+  ["y",[
+   ["パソコンはバッグから出す必要がありますか？","Do I need to take out my laptop?"],
+   ["モバイルバッテリーはどこに入れればいいですか？","Where should I put my power bank?"],
+   ["この液体は持ち込めますか？","Can I bring this liquid?","Is this liquid OK?"],
+   ["水のボトルは持ち込めますか？","Can I bring my water bottle?"],
+   ["この荷物は機内に持ち込めますか？","Can I take this on the plane?"],
+   ["どこに並べばいいですか？","Where should I line up?","Which line should I go to?"]]]]],
+ ["出国・入国審査",[
+  ["s",[
+   ["旅行の目的は何ですか？","What's the purpose of your visit?","Are you here for business or pleasure?",[["Sightseeing.","観光です"],["Business.","仕事です"]]],
+   ["何日間滞在しますか？","How long are you staying?","How long will you be here?",[["One week.","1週間です"],["Five days.","5日間です"]]],
+   ["どこに宿泊しますか？","Where are you staying?","Where will you be staying?",[["At the {Hilton Hotel}.","〇〇ホテルです"],["At my friend's house.","友達の家です"]]],
+   ["ホテルの名前は何ですか？","What's the name of your hotel?","Which hotel are you staying at?",[["The {Hilton Hotel}.","〇〇ホテルです"],["Here it is.","これです（予約画面を見せる）"]]],
+   ["ホテルの住所は分かりますか？","Do you have the address of your hotel?","Do you know your hotel's address?",[["Yes, here it is.","はい、これです（画面を見せる）"]]],
+   ["一人で旅行していますか？","Are you traveling alone?","Are you traveling by yourself?",[["Yes, I'm alone.","はい、一人です"],["No, with my friend.","いいえ、友達とです"]]],
+   ["誰かと一緒に来ましたか？","Are you traveling with anyone?","Who are you here with?",[["With my family.","家族とです"],["No, I'm alone.","いいえ、一人です"]]],
+   ["この国に来るのは初めてですか？","Is this your first time here?","Have you been here before?",[["Yes, it's my first time.","はい、初めてです"],["No, it's my second time.","いいえ、2回目です"]]],
+   ["帰国日はいつですか？","When are you leaving?","When do you fly home?",[["On {May 10}.","〇月〇日です"],["Next {Sunday}.","来週の〇曜日です"]]],
+   ["帰りの航空券は持っていますか？","Do you have a return ticket?","Can I see your return flight?",[["Yes, here it is.","はい、これです"]]],
+   ["この国に友人や家族はいますか？","Do you have any friends or family here?",[["No.","いいえ"],["Yes, my friend lives here.","はい、友達が住んでいます"]]],
+   ["仕事は何をしていますか？","What do you do for work?","What's your occupation?",[["I'm an office worker.","会社員です"],["I'm a student.","学生です"]]],
+   ["現金はいくら持っていますか？","How much cash are you carrying?","How much money do you have with you?",[["About {500} dollars.","〇ドルくらいです"]]],
+   ["食べ物や植物などを持ち込んでいますか？","Are you bringing in any food, plants, or animals?","Do you have any food or plants with you?",[["No.","いいえ"],["Just some snacks.","お菓子だけです"]]],
+   ["申告するものはありますか？","Do you have anything to declare?","Anything to declare?",[["No, nothing.","いいえ、ありません"]]]]],
+  ["y",[
+   ["入国カードは必要ですか？","Do I need an arrival card?"],
+   ["どこに並べばいいですか？","Where should I line up?"],
+   ["この書類の書き方を教えてもらえますか？","Can you show me how to fill out this form?","How do I fill this out?"],
+   ["滞在先の住所はこの書類に書けばいいですか？","Do I write my hotel address here?"],
+   ["ここで入国審査を受ければいいですか？","Is this the line for immigration?","Do I go through immigration here?"]]]]],
+ ["搭乗・乗り継ぎ",[
+  ["s",[
+   ["搭乗券を見せてください。","Can I see your boarding pass, please?","Boarding pass, please.",[["Here you are.","どうぞ"]]],
+   ["パスポートを見せてください。","Can I see your passport?","And your passport, please.",[["Here you are.","どうぞ"]]],
+   ["機内持ち込みの荷物はいくつありますか？","How many carry-ons do you have?","How many bags are you bringing on board?",[["Just one.","1つです"]]],
+   ["お名前を確認させてください。","Can I just confirm your name?","Could you tell me your name, please?",[["It's {Yuki Tanaka}.","〇〇です"]]],
+   ["もうすぐ搭乗が始まります。","We'll begin boarding shortly.","Boarding will start soon.",[["OK, thank you.","わかりました、ありがとう"]]],
+   ["こちらの列にお並びください。","Please line up over here.","Please wait in this line.",[["OK.","わかりました"]]],
+   ["搭乗口が変更になりました。","There's been a gate change.","Your gate has changed.",[["Which gate is it now?","今は何番ゲートですか？"]]],
+   ["搭乗開始時刻は〇時です。","Boarding begins at 〇.","We'll start boarding at 〇.",[["OK, thank you.","わかりました、ありがとう"]]]]],
+  ["y",[
+   ["搭乗口はどこですか？","Where is gate 〇?","Where is my gate?"],
+   ["搭乗口は変更になりましたか？","Did the gate change?"],
+   ["搭乗は何時から始まりますか？","What time does boarding start?"],
+   ["この飛行機は〇〇行きですか？","Is this the flight to 〇〇?"],
+   ["この便は遅れていますか？","Is this flight delayed?"],
+   ["乗り継ぎ時間が短いのですが、間に合いますか？","I have a short connection. Will I make it?"],
+   ["乗り継ぎ先ではどこに行けばいいですか？","Where do I go for my connecting flight?"],
+   ["乗り継ぎのための保安検査は必要ですか？","Do I need to go through security again?"],
+   ["この空港で一度外に出る必要がありますか？","Do I need to leave the airport?","Do I need to go through immigration here?"]]]]],
+ ["荷物の受け取り・紛失",[
+  ["s",[
+   ["荷物の特徴を教えてください。","Can you describe your bag?","What does your bag look like?",[["It's a {black} suitcase.","〇色のスーツケースです"],["It's a large {blue} bag.","大きい〇色のバッグです"]]],
+   ["スーツケースの色は何色ですか？","What color is your suitcase?",[["Black.","黒です"],["Silver.","シルバーです"]]],
+   ["荷物の大きさはどのくらいですか？","How big is it?","What size is your bag?",[["It's large.","大きいサイズです"],["About this big.","これくらいです（手で示す）"]]],
+   ["荷物に目印はついていますか？","Does it have anything on it that stands out?","Any name tag or ribbon on it?",[["Yes, a {red} ribbon.","はい、〇色のリボンです"],["It has a name tag.","名札がついています"]]],
+   ["荷物のタグはお持ちですか？","Do you have your baggage claim tag?","Do you have the baggage sticker they gave you?",[["Yes, here it is.","はい、これです"]]],
+   ["最後に荷物を確認したのはいつですか？","When did you last see your bag?",[["At check-in in {Tokyo}.","〇〇でチェックインした時です"]]],
+   ["連絡先を教えてください。","Can I get your contact details?","Where can we reach you?",[["Here's my phone number.","これが電話番号です"],["I'm staying at the {Hilton}.","〇〇ホテルに泊まっています"]]]]],
+  ["y",[
+   ["荷物はどこで受け取れますか？","Where is baggage claim?","Where can I get my bags?"],
+   ["この便の荷物は何番のターンテーブルですか？","Which carousel is flight 〇〇 on?"],
+   ["まだ荷物が出てきません。","My bag hasn't come out yet."],
+   ["私の荷物が見つかりません。","I can't find my bag.","My bag is missing."],
+   ["荷物が破損しています。","My bag is damaged."],
+   ["荷物を別の場所に送られてしまったようです。","I think my bag went to the wrong place."],
+   ["荷物の状況を確認してもらえますか？","Can you check where my bag is?"],
+   ["荷物はホテルまで届けてもらえますか？","Can you send my bag to my hotel?"]]]]],
+ ["空港のその他",[
+  ["y",[
+   ["Wi-Fiはどこで使えますか？","Where can I use Wi-Fi?","Is there free Wi-Fi?"],
+   ["SIMカードはどこで購入できますか？","Where can I buy a SIM card?"],
+   ["両替所はどこですか？","Where is the currency exchange?"],
+   ["ATMはどこにありますか？","Where is an ATM?","Is there an ATM near here?"],
+   ["トイレはどこですか？","Where is the restroom?","Where is the bathroom?"],
+   ["タクシー乗り場はどこですか？","Where is the taxi stand?"],
+   ["空港バス乗り場はどこですか？","Where is the airport bus stop?"],
+   ["市内までどのくらいかかりますか？","How long does it take to get downtown?","How long to the city center?"],
+   ["この電車は市内に行きますか？","Does this train go downtown?"],
+   ["この電車のチケットはどこで買えますか？","Where can I buy a ticket for this train?"],
+   ["ここで充電できますか？","Can I charge my phone here?"],
+   ["空港内に荷物を預けられる場所はありますか？","Is there luggage storage here?","Where can I leave my bags?"]]]]]
+]},
+{id:"hotel",name:"ホテル",en:"HOTEL",icon:"bed",lead:"チェックインから部屋のトラブル、チェックアウトまで。フロントの質問には答え方の例付き。",subs:[
+ ["チェックイン",[
+  ["s",[
+   ["ご予約されていますか？","Do you have a reservation?","Are you checking in?",[["Yes, under {Tanaka}.","はい、〇〇で予約しています"],["Yes, I'm checking in.","はい、チェックインです"]]],
+   ["お名前を教えていただけますか？","Can I have your name, please?","What name is the reservation under?",[["{Yuki Tanaka}.","〇〇です"]]],
+   ["パスポートを見せていただけますか？","Can I see your passport, please?",[["Here you are.","どうぞ"]]],
+   ["予約確認書をお持ちですか？","Do you have your booking confirmation?","Do you have a confirmation number?",[["Yes, here it is.","はい、これです"]]],
+   ["何泊されますか？","How many nights will you be staying?","How many nights?",[["Three nights.","3泊です"]]],
+   ["何名で宿泊されますか？","How many guests?","How many people are staying?",[["Just me.","私一人です"],["Two people.","2人です"]]],
+   ["朝食はご利用になりますか？","Would you like breakfast?","Will you be having breakfast with us?",[["Yes, please.","はい、お願いします"],["No, thank you.","いえ、大丈夫です"]]],
+   ["朝食付きのプランでよろしいですか？","Your booking includes breakfast, is that right?","You're on the breakfast-included rate, correct?",[["Yes, that's right.","はい、そうです"],["No, room only.","いいえ、素泊まりです"]]],
+   ["お支払いは済んでいますか？","Have you already paid for your stay?","Is your room prepaid?",[["Yes, I paid online.","はい、ネットで払いました"],["No, not yet.","いいえ、まだです"]]],
+   ["お支払いは現金とカードのどちらにしますか？","Will you be paying by cash or card?","Cash or card?",[["Card, please.","カードでお願いします"],["Cash, please.","現金でお願いします"]]],
+   ["デポジットとしてクレジットカードをお預かりしてもよろしいですか？","Can I take a credit card for the deposit?","We'll need a card on file for incidentals.",[["Sure, here you are.","はい、どうぞ"]]],
+   ["チェックアウトは何時かご存じですか？","Do you know what time checkout is?","Just so you know, checkout is at 11.",[["What time is checkout?","何時ですか？"],["11 o'clock, right?","11時ですよね？"]]],
+   ["お部屋の清掃は毎日必要ですか？","Would you like housekeeping every day?","Do you need your room cleaned daily?",[["Yes, please.","はい、お願いします"],["No, that's fine.","いいえ、大丈夫です"]]],
+   ["何かご質問はありますか？","Do you have any questions?","Is there anything else I can help you with?",[["No, I'm fine. Thank you.","大丈夫です、ありがとう"],["What's the Wi-Fi password?","Wi-Fiのパスワードは？"]]]]],
+  ["y",[
+   ["予約しています。","I have a reservation.","I have a booking under 〇〇."],
+   ["予約確認書はこちらです。","Here is my confirmation."],
+   ["予約した部屋のタイプを確認したいです。","Can you check my room type?"],
+   ["朝食は何時から何時までですか？","What time is breakfast?"],
+   ["朝食はどこで食べられますか？","Where is breakfast?"],
+   ["Wi-Fiのパスワードを教えてください。","What is the Wi-Fi password?"],
+   ["エレベーターはどこですか？","Where is the elevator?"],
+   ["部屋までの行き方を教えてください。","How do I get to my room?"],
+   ["チェックイン時間より早く到着しました。","I arrived early."],
+   ["早めにチェックインできますか？","Can I check in early?"],
+   ["追加料金はかかりますか？","Is there an extra charge?","Does it cost extra?"],
+   ["高層階の部屋を希望できますか？","Can I have a room on a high floor?"],
+   ["静かな部屋を希望します。","I'd like a quiet room."],
+   ["窓のある部屋を希望します。","I'd like a room with a window."]]]]],
+ ["荷物の預かり",[
+  ["y",[
+   ["チェックイン前に荷物を預かってもらえますか？","Can I leave my bags here until check-in?"],
+   ["チェックアウト後も荷物を預かってもらえますか？","Can I leave my bags here after checkout?"],
+   ["スーツケースを預けたいです。","I'd like to leave my suitcase."],
+   ["夕方まで荷物を預かってもらえますか？","Can you keep my bags until this evening?"],
+   ["荷物の預かりは無料ですか？","Is it free?"],
+   ["荷物は何時まで預かってもらえますか？","Until what time can you keep my bags?"],
+   ["荷物はどこに預ければいいですか？","Where should I leave my bags?"],
+   ["荷物を取りに来ました。","I'm here to pick up my bags."],
+   ["荷物を預けたときの引換券をなくしました。","I lost my luggage ticket."],
+   ["荷物を預けたまま外出しても大丈夫ですか？","Is it OK to go out and leave my bags here?"]]],
+  ["s",[
+   ["荷物はいくつありますか？","How many bags do you have?","How many pieces?",[["Two bags.","2つです"]]],
+   ["何時ごろ取りに来ますか？","What time will you be back for them?","When will you be picking them up?",[["Around {5} p.m.","〇時ごろです"],["After lunch.","お昼のあとです"]]],
+   ["お名前を教えてください。","Can I get your name?",[["{Yuki Tanaka}.","〇〇です"]]],
+   ["この荷物はお客様のものですか？","Is this yours?","Are these your bags?",[["Yes, they're mine.","はい、私のです"]]],
+   ["荷物の引換券をお持ちですか？","Do you have your claim ticket?","Can I see your luggage tag?",[["Yes, here it is.","はい、これです"],["Sorry, I lost it.","すみません、なくしました"]]]]]]],
+ ["部屋・設備",[
+  ["s",[
+   ["お部屋に問題はありませんか？","Is everything OK with your room?","How's everything with the room?",[["Yes, it's great.","はい、大丈夫です"],["The {AC} doesn't work.","〇〇が動きません"]]],
+   ["何か必要なものはありますか？","Is there anything you need?","Can I get you anything?",[["Some water, please.","水をください"],["No, I'm fine. Thanks.","大丈夫です"]]],
+   ["タオルを追加でお持ちしましょうか？","Would you like some extra towels?",[["Yes, please.","はい、お願いします"],["No, thank you.","いえ、大丈夫です"]]],
+   ["清掃は必要ですか？","Would you like housekeeping?","Do you need your room made up?",[["Yes, please.","はい、お願いします"],["Not today, thanks.","今日は大丈夫です"]]],
+   ["何かお困りのことはありますか？","Is there anything I can help you with?",[["No, I'm fine. Thanks.","大丈夫です、ありがとう"]]]]],
+  ["y",[
+   ["エアコンが動きません。","The air conditioner isn't working.","The AC doesn't work."],
+   ["シャワーからお湯が出ません。","There's no hot water in the shower."],
+   ["水圧が弱いです。","The water pressure is low."],
+   ["トイレが流れません。","The toilet won't flush."],
+   ["部屋の電気がつきません。","The lights don't work."],
+   ["テレビが映りません。","The TV doesn't work."],
+   ["Wi-Fiがつながりません。","The Wi-Fi isn't working.","I can't connect to the Wi-Fi."],
+   ["部屋が少し寒いです。","My room is a little cold."],
+   ["部屋が暑すぎます。","My room is too hot."],
+   ["部屋がうるさいです。","My room is noisy."],
+   ["隣の部屋の音が聞こえます。","I can hear the room next door."],
+   ["部屋を変えてもらえますか？","Can I change rooms?"],
+   ["タオルを追加でもらえますか？","Can I have more towels?"],
+   ["水を追加でもらえますか？","Can I have more water?"],
+   ["トイレットペーパーをもらえますか？","Can I have some toilet paper?"],
+   ["ドライヤーを貸してもらえますか？","Can I borrow a hair dryer?"],
+   ["アイロンを貸してもらえますか？","Can I borrow an iron?"],
+   ["毛布をもう1枚もらえますか？","Can I have one more blanket?"],
+   ["部屋の掃除をお願いできますか？","Can you clean my room, please?"],
+   ["清掃は不要です。","No cleaning, please.","I don't need cleaning today."],
+   ["シーツを交換してもらえますか？","Can you change the sheets?"],
+   ["部屋に金庫はありますか？","Is there a safe in the room?"],
+   ["洗濯機はありますか？","Is there a washing machine?"],
+   ["コインランドリーはありますか？","Is there a coin laundry?","Is there a laundromat nearby?"],
+   ["電子レンジは使えますか？","Can I use a microwave?"]]]]],
+ ["サービス・施設",[
+  ["y",[
+   ["朝食は何時からですか？","What time does breakfast start?"],
+   ["朝食会場はどこですか？","Where is breakfast served?"],
+   ["朝食は予約が必要ですか？","Do I need a reservation for breakfast?"],
+   ["朝食を追加できますか？","Can I add breakfast?"],
+   ["ランドリーサービスはありますか？","Do you have laundry service?"],
+   ["洗濯物はいつ仕上がりますか？","When will my laundry be ready?"],
+   ["アイロンは借りられますか？","Can I borrow an iron?"],
+   ["ジムはありますか？","Is there a gym?"],
+   ["プールはありますか？","Is there a pool?"],
+   ["プールは何時まで利用できますか？","What time does the pool close?"],
+   ["ホテル内にレストランはありますか？","Is there a restaurant in the hotel?"],
+   ["近くにコンビニはありますか？","Is there a convenience store nearby?"],
+   ["近くにスーパーはありますか？","Is there a supermarket nearby?"],
+   ["空港送迎サービスはありますか？","Do you have an airport shuttle?"],
+   ["タクシーを呼んでもらえますか？","Can you call a taxi for me?"],
+   ["観光ツアーを予約できますか？","Can I book a tour here?"],
+   ["傘を借りられますか？","Can I borrow an umbrella?"],
+   ["変換プラグを借りられますか？","Can I borrow a plug adapter?"],
+   ["荷物用の体重計はありますか？","Do you have a luggage scale?"]]]]],
+ ["ホテル周辺・交通",[
+  ["y",[
+   ["最寄り駅はどこですか？","Where is the nearest station?"],
+   ["駅まで徒歩で何分くらいですか？","How long does it take to walk to the station?","How many minutes to the station on foot?"],
+   ["空港までどうやって行けばいいですか？","How do I get to the airport?"],
+   ["空港までタクシーでどのくらいかかりますか？","How long does it take to the airport by taxi?"],
+   ["おすすめの観光スポットはありますか？","What places do you recommend?","Any good places to visit?"],
+   ["この周辺は夜でも安全ですか？","Is this area safe at night?"],
+   ["近くにおいしいレストランはありますか？","Are there any good restaurants nearby?"],
+   ["この場所までの行き方を教えてください。","How do I get to this place?","Can you show me the way here?"],
+   ["タクシー料金はいくらくらいですか？","About how much is a taxi?"],
+   ["バス停はどこですか？","Where is the bus stop?"]]]]],
+ ["チェックアウト",[
+  ["s",[
+   ["チェックアウトですか？","Checking out?","Are you checking out today?",[["Yes, please.","はい、お願いします"]]],
+   ["お部屋の鍵を返していただけますか？","Can I have your room key, please?","Could you return your key card?",[["Here you are.","どうぞ"]]],
+   ["ミニバーは利用されましたか？","Did you have anything from the minibar?",[["No, I didn't.","使っていません"],["Yes, one {beer}.","はい、〇〇を1つ"]]],
+   ["追加料金はございますか？","Anything to add to your bill?","Did you have any extra charges, like room service?",[["No, nothing.","ありません"]]],
+   ["お支払いはどうされますか？","How would you like to pay?",[["By card, please.","カードでお願いします"]]],
+   ["領収書は必要ですか？","Would you like a receipt?",[["Yes, please.","お願いします"],["No, thank you.","いりません"]]],
+   ["滞在はいかがでしたか？","How was your stay?","Did you enjoy your stay?",[["It was great. Thank you!","よかったです、ありがとう"],["Very comfortable.","とても快適でした"]]],
+   ["タクシーをお呼びしましょうか？","Would you like me to call you a taxi?","Shall I get you a cab?",[["Yes, please.","お願いします"],["No, thanks. I'll take the train.","大丈夫です、電車で行きます"]]],
+   ["荷物をお預かりしましょうか？","Would you like us to hold your bags?","Can I keep your luggage for you?",[["Yes, until {3} p.m., please.","〇時までお願いします"],["No, thank you.","大丈夫です"]]]]],
+  ["y",[
+   ["チェックアウトをお願いします。","Check out, please.","I'd like to check out."],
+   ["追加料金はありますか？","Are there any extra charges?"],
+   ["ミニバーは利用していません。","I didn't use the minibar."],
+   ["領収書をいただけますか？","Can I have a receipt?"],
+   ["クレジットカードで支払えますか？","Can I pay by credit card?"],
+   ["チェックアウトを少し遅らせることはできますか？","Can I check out a little later?"],
+   ["レイトチェックアウトには追加料金がかかりますか？","Is there a charge for late checkout?"],
+   ["荷物を預けてから出かけたいです。","I'd like to leave my bags and go out."],
+   ["タクシーを呼んでもらえますか？","Can you call a taxi for me?"],
+   ["空港までの送迎をお願いできますか？","Can I book a ride to the airport?"],
+   ["忘れ物をしたかもしれません。","I think I left something."],
+   ["部屋に忘れ物がないか確認してもらえますか？","Can you check my room for anything I left?"]]]]],
+ ["トラブル・緊急時",[
+  ["y",[
+   ["部屋の鍵をなくしました。","I lost my room key."],
+   ["カードキーが使えません。","My key card doesn't work."],
+   ["部屋に入れなくなりました。","I'm locked out of my room."],
+   ["パスポートをなくしました。","I lost my passport."],
+   ["財布をなくしました。","I lost my wallet."],
+   ["部屋に忘れ物をしました。","I left something in my room."],
+   ["盗難に遭ったかもしれません。","I think something was stolen.","I think my bag was stolen."],
+   ["気分が悪いです。","I don't feel well.","I feel sick."],
+   ["病院を紹介してもらえますか？","Can you recommend a hospital?","Where is a hospital?"],
+   ["警察を呼んでもらえますか？","Can you call the police?"],
+   ["日本語を話せるスタッフはいますか？","Does anyone speak Japanese?"],
+   ["英語があまり得意ではありません。","My English isn't very good."],
+   ["ゆっくり話してもらえますか？","Could you speak slowly, please?","Slowly, please."],
+   ["もう一度説明してもらえますか？","Could you explain again, please?","Sorry, one more time?"]]]]]
+]},
+{id:"town",name:"街なか",en:"AROUND TOWN",icon:"pin",lead:"タクシー・レストラン・買い物・観光・電車。旅先でいちばん口に出す短いフレーズです。",subs:[
+ ["タクシー",[["y",[
+   ["この住所までお願いします。","To this address, please.","Can you take me here?"],
+   ["ここで降ろしてください。","Please stop here.","Here is fine."],
+   ["クレジットカードは使えますか？","Can I pay by card?"]]]]],
+ ["レストラン",[
+  ["s",[["予約していますか？","Do you have a reservation?","Did you book a table?",[["Yes, under {Tanaka}.","はい、〇〇で予約しています"],["No. Table for {two}, please.","いいえ。〇人ですが空いてますか？"]]]]],
+  ["y",[
+   ["一人です。","Just one.","A table for one, please."],
+   ["メニューを見せてください。","Can I see the menu, please?","Menu, please."],
+   ["これは何が入っていますか？","What's in this?"],
+   ["アレルギーがあります。","I have an allergy.","I'm allergic to 〇〇."]]]]],
+ ["買い物",[["y",[
+   ["これはいくらですか？","How much is this?"],
+   ["試着できますか？","Can I try this on?"],
+   ["クレジットカードは使えますか？","Can I pay by card?","Do you take credit cards?"]]]]],
+ ["観光施設",[["y",[
+   ["チケットはどこで買えますか？","Where can I buy tickets?"],
+   ["写真を撮ってもらえますか？","Could you take a picture of us?","Can you take our photo?"]]]]],
+ ["交通機関",[["y",[
+   ["この電車は〇〇に行きますか？","Does this train go to 〇〇?"],
+   ["どこで乗り換えればいいですか？","Where do I change trains?","Where should I transfer?"]]]]],
+ ["道案内",[["y",[
+   ["〇〇までどう行けばいいですか？","How do I get to 〇〇?","Which way is 〇〇?"]]]]],
+ ["トラブル",[["y",[
+   ["道に迷いました。","I'm lost."],
+   ["携帯電話をなくしました。","I lost my phone."]]]]]
+]}];
+
+/* ---- flatten ---- */
+const ALL=[];
+D.forEach((sc,si)=>{sc.subs.forEach(([sn,groups],ji)=>{groups.forEach(([w,items])=>{items.forEach((it,k)=>{
+  const ans=Array.isArray(it[it.length-1])?it[it.length-1]:null;
+  const ens=it.slice(1,ans?-1:undefined);
+  ALL.push({id:`${sc.id}-${ji}-${w}${k}`,si,ji,sn,w,jp:it[0],ens,ans});
+});});});});
+
+const ICON={
+ plane:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z"/></svg>',
+ bed:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18V6M3 14h18v4M21 14v-2a3 3 0 0 0-3-3h-7v5"/><circle cx="7" cy="11" r="2"/></svg>',
+ pin:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>',
+ cards:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="14" height="14" rx="2.5"/><path d="M7 3h11.5A2.5 2.5 0 0 1 21 5.5V17"/></svg>',
+ spk:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+ chk:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>',
+ bulb:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
+};
+
+/* ---- state ---- */
+const store={get(k,d){try{const v=localStorage.getItem("tripen-"+k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem("tripen-"+k,JSON.stringify(v))}catch(e){}}};
+let learned=new Set(store.get("learned",[]));
+let filter=store.get("filter","all"), quiz=store.get("quiz",false), query="";
+const canSpeak=typeof window.speechSynthesis!=="undefined";
+
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const fmt=t=>esc(t).replace(/\{([^}]+)\}/g,"<mark>$1</mark>").replace(/〇〇|〇/g,"<mark>〇〇</mark>");
+const plain=t=>t.replace(/[{}]/g,"").replace(/〇〇|〇/g,"");
+
+function speak(t,btn){
+  if(!canSpeak)return;
+  try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(plain(t));u.lang="en-US";u.rate=.92;
+    const v=speechSynthesis.getVoices().find(v=>/en[-_]US/i.test(v.lang));if(v)u.voice=v;
+    if(btn){btn.classList.add("on");u.onend=u.onerror=()=>btn.classList.remove("on");}
+    speechSynthesis.speak(u);}catch(e){}
+}
+const spkBtn=t=>canSpeak?`<button class="spk" data-act="speak" data-t="${esc(t)}" aria-label="発音を聞く">${ICON.spk}</button>`:"";
+
+function card(p){
+  const ens=p.ens.map((e,k)=>`<div class="en"><span class="l">${p.ens.length>1?(k?"B":"A"):""}</span><span class="t" data-act="reveal">${fmt(e)}</span>${spkBtn(e)}</div>`).join("");
+  const ans=p.ans?`<div class="ans"><div class="h">${ICON.bulb}こう答えればOK</div>${p.ans.map(([e,j])=>`<div class="r"><div><b>${fmt(e)}</b><small>${esc(j)}</small></div>${spkBtn(e)}</div>`).join("")}</div>`:"";
+  const on=learned.has(p.id);
+  return `<article class="card${on?" learned":""}" id="c-${p.id}"><div class="hd"><div class="jp"><span class="who ${p.w}">${p.w==="y"?"自分が言う":"相手が言う"}</span>${esc(p.jp)}</div><button class="chk" data-act="learn" data-id="${p.id}" aria-pressed="${on}" aria-label="覚えた">${ICON.chk}</button></div><div class="ens">${ens}</div>${ans}</article>`;
+}
+function ring(pct){
+  const c=2*Math.PI*40;
+  return `<div class="ring"><svg viewBox="0 0 96 96"><circle cx="48" cy="48" r="40" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="9"/><circle cx="48" cy="48" r="40" fill="none" stroke="#fdc805" stroke-width="9" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c*(1-pct)}"/></svg><div class="c"><b>${Math.round(pct*100)}</b><small>% 覚えた</small></div></div>`;
+}
+function tools(){
+  return `<div class="tools"><div class="seg" role="group" aria-label="表示">${[["all","すべて"],["y","自分が言う"],["s","相手が言う"]].map(([k,l])=>`<button data-act="filter" data-f="${k}" aria-pressed="${filter===k}">${l}</button>`).join("")}</div>
+  <button class="tog" data-act="quiz" aria-pressed="${quiz}"><i></i>英語を隠す</button></div>`;
+}
+
+/* ---- views ---- */
+const view=document.getElementById("view");
+function sceneView(si){
+  const sc=D[si], items=ALL.filter(p=>p.si===si);
+  const done=items.filter(p=>learned.has(p.id)).length, staffA=items.filter(p=>p.ans).length;
+  let h=`<section class="hero">${ring(items.length?done/items.length:0)}<div><div class="k">${sc.en}</div><h1>${sc.name}の英語</h1><p>${sc.lead}</p>
+    <div class="meta"><span><b>${items.length}</b>フレーズ</span><span><b>${staffA}</b>答え方つき</span><span><b>${done}</b>覚えた</span></div></div></section>`;
+  if(si===0)h+=`<div class="legend"><div><span class="who s">相手が言う</span><b>スタッフ・審査官の自然な英語</b>聞き取れればOK。黄色い枠の答え方を言えるように。</div><div><span class="who y">自分が言う</span><b>旅行者のシンプルな英語</b>短くてそのまま伝わる形。A がいちばんよく使う言い方。</div></div>`;
+  h+=`<nav class="chips" aria-label="場面">${sc.subs.map(([sn],ji)=>`<a href="#${sc.id}" data-act="jump" data-to="sub-${si}-${ji}">${esc(sn)}</a>`).join("")}</nav>`+tools();
+  let body="";
+  sc.subs.forEach(([sn],ji)=>{
+    const list=items.filter(p=>p.ji===ji&&(filter==="all"||filter===p.w));
+    if(!list.length)return;
+    body+=`<div class="sub" id="sub-${si}-${ji}"><div class="sec-h"><h2>${esc(sn)}</h2><span>${list.length}</span></div><div class="cards">${list.map(card).join("")}</div></div>`;
+  });
+  view.innerHTML=h+(body||`<div class="empty"><b>この表示にはフレーズがありません</b>「すべて」に切り替えてください。</div>`);
+  view.classList.toggle("quiz",quiz);
+}
+function searchView(){
+  const q=query.toLowerCase();
+  const list=ALL.filter(p=>(p.jp+p.ens.join(" ")+(p.ans||[]).flat().join(" ")).toLowerCase().includes(q));
+  view.innerHTML=`<div class="sec-h" style="margin-top:4px"><h2>「${esc(query)}」の検索結果</h2><span>${list.length}</span></div>`+tools()+
+    (list.length?`<div class="cards" style="margin-top:10px">${list.filter(p=>filter==="all"||filter===p.w).map(p=>card(p).replace('<div class="jp">',`<div class="jp"><small style="display:block;font-size:11px;color:var(--muted);font-weight:700">${D[p.si].name}｜${esc(p.sn)}</small>`)).join("")}</div>`
+    :`<div class="empty"><b>見つかりませんでした</b>別のことば（例：荷物、Wi-Fi、タクシー）でさがしてください。</div>`);
+  view.classList.toggle("quiz",quiz);
+}
+let deck=[],pos=0,shown=false,pScope=store.get("pscope","y");
+function buildDeck(){
+  const pool=ALL.filter(p=>p.w===pScope&&!learned.has(p.id));
+  deck=pool.sort(()=>Math.random()-.5);pos=0;shown=false;
+}
+function practiceView(){
+  if(!deck.length||pos>=deck.length)buildDeck();
+  const total=ALL.filter(p=>p.w===pScope).length, left=ALL.filter(p=>p.w===pScope&&!learned.has(p.id)).length;
+  let h=`<section class="hero" style="grid-template-columns:1fr"><div><div class="k">PRACTICE</div><h1>フラッシュカード</h1><p>日本語を見て英語を言ってみて、「答えを見る」で確認。言えたら「覚えた」で次へ。</p>
+   <div class="meta"><span><b>${total-left}</b>/ ${total} 覚えた</span></div></div></section>
+   <div class="tools" style="margin-top:14px"><div class="seg" role="group" aria-label="練習するフレーズ"><button data-act="pscope" data-f="y" aria-pressed="${pScope==="y"}">自分が言う英語</button><button data-act="pscope" data-f="s" aria-pressed="${pScope==="s"}">相手の質問に答える</button></div></div>`;
+  const p=deck[pos];
+  if(!p){view.innerHTML=h+`<div class="flash"><div class="q">ぜんぶ覚えました 🎉</div><p style="margin:0;color:var(--muted)">「覚えた」をリセットすると、もう一度最初から練習できます。</p><button class="btn no" data-act="reset">「覚えた」をリセット</button></div>`;return;}
+  const isS=p.w==="s";
+  const qText=isS?p.ens[0]:p.jp;
+  const answer=isS?(p.ans||[]).map(([e,j])=>`<div class="en"><span class="t">${fmt(e)}</span>${spkBtn(e)}</div><small style="color:var(--muted);margin-top:-4px">${esc(j)}</small>`).join(""):
+    p.ens.map((e,k)=>`<div class="en"><span class="l">${p.ens.length>1?(k?"B":"A"):""}</span><span class="t">${fmt(e)}</span>${spkBtn(e)}</div>`).join("");
+  h+=`<div class="flash"><div class="meta"><span>${D[p.si].name}｜${esc(p.sn)}</span><span>${pos+1} / ${deck.length}</span></div>
+    <div class="bar"><i style="width:${(pos/deck.length)*100}%"></i></div>
+    <div><div class="scene">${isS?"相手にこう聞かれたら、なんて答える？":"英語でなんて言う？"}</div>
+    <div class="q" style="${isS?"font-family:var(--en);font-weight:700":""}">${isS?fmt(qText):esc(qText)}</div>
+    ${isS?`<div style="display:flex;gap:8px;align-items:center;margin-top:6px"><small style="color:var(--muted)">${esc(p.jp)}</small>${spkBtn(qText)}</div>`:""}</div>
+    <div class="a">${shown?answer:`<div class="hidden">頭の中で言ってみてから ↓</div>`}</div>
+    ${shown?`<div class="row2"><button class="btn no" data-act="next">もう一回</button><button class="btn yes" data-act="got" data-id="${p.id}">${ICON.chk}覚えた</button></div>`:`<button class="btn go" data-act="show">答えを見る</button>`}</div>`;
+  view.innerHTML=h;view.classList.remove("quiz");
+}
+
+/* ---- nav ---- */
+const TABS=[...D.map((s,i)=>({h:s.id,n:s.name,icon:s.icon,i})),{h:"practice",n:"練習",icon:"cards"}];
+function current(){const h=location.hash.slice(1);return TABS.find(t=>t.h===h)?h:"airport";}
+function renderNav(){
+  const cur=query?"":current();
+  document.getElementById("tabbar").innerHTML=TABS.map(t=>`<a class="tab" href="#${t.h}" ${cur===t.h?'aria-current="page"':""}>${ICON[t.icon]}${t.n}</a>`).join("");
+  document.getElementById("sidenav").innerHTML=TABS.map(t=>{
+    const cnt=t.i!=null?ALL.filter(p=>p.si===t.i).length:"";
+    let s=`<a class="nav" href="#${t.h}" ${cur===t.h?'aria-current="page"':""}>${ICON[t.icon]}${t.n}<span class="c">${cnt}</span></a>`;
+    if(t.i!=null&&cur===t.h)s+=`<div class="subnav">${D[t.i].subs.map(([sn],ji)=>`<a href="#${t.h}" data-act="jump" data-to="sub-${t.i}-${ji}">${esc(sn)}</a>`).join("")}</div>`;
+    return s;}).join("");
+}
+function render(){
+  renderNav();
+  if(query)return searchView();
+  const c=current();
+  if(c==="practice")return practiceView();
+  sceneView(TABS.find(t=>t.h===c).i);
+}
+window.addEventListener("hashchange",()=>{query="";["q1","q2"].forEach(id=>document.getElementById(id).value="");render();window.scrollTo(0,0)});
+["q1","q2"].forEach(id=>document.getElementById(id).addEventListener("input",e=>{query=e.target.value.trim();["q1","q2"].forEach(o=>{if(o!==id)document.getElementById(o).value=e.target.value});render()}));
+
+document.addEventListener("click",e=>{
+  const el=e.target.closest("[data-act]");if(!el)return;
+  const a=el.dataset.act;
+  if(a==="speak"){speak(el.dataset.t,el);return;}
+  if(a==="reveal"){if(quiz)el.parentElement.classList.toggle("show");return;}
+  if(a==="jump"){e.preventDefault();const t=document.getElementById(el.dataset.to);if(t)t.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth",block:"start"});
+    document.querySelectorAll(".chips a").forEach(c=>c.classList.toggle("on",c.dataset.to===el.dataset.to));return;}
+  if(a==="learn"){const id=el.dataset.id;learned.has(id)?learned.delete(id):learned.add(id);store.set("learned",[...learned]);
+    const on=learned.has(id);el.setAttribute("aria-pressed",on);el.closest(".card").classList.toggle("learned",on);
+    const hero=view.querySelector(".hero");if(hero&&!query){const y=window.scrollY;render();window.scrollTo(0,y);}return;}
+  if(a==="filter"){filter=el.dataset.f;store.set("filter",filter);const y=window.scrollY;render();window.scrollTo(0,y);return;}
+  if(a==="quiz"){quiz=!quiz;store.set("quiz",quiz);el.setAttribute("aria-pressed",quiz);view.classList.toggle("quiz",quiz);view.querySelectorAll(".en.show").forEach(x=>x.classList.remove("show"));return;}
+  if(a==="pscope"){pScope=el.dataset.f;store.set("pscope",pScope);deck=[];render();return;}
+  if(a==="show"){shown=true;render();return;}
+  if(a==="next"){pos++;shown=false;render();return;}
+  if(a==="got"){learned.add(el.dataset.id);store.set("learned",[...learned]);pos++;shown=false;render();return;}
+  if(a==="reset"){learned.clear();store.set("learned",[]);deck=[];render();return;}
+});
+document.addEventListener("keydown",e=>{
+  if(current()!=="practice"||query||e.target.tagName==="INPUT")return;
+  if(e.key===" "&&!shown){e.preventDefault();shown=true;render();}
+});
+if(canSpeak){try{speechSynthesis.getVoices();speechSynthesis.onvoiceschanged=()=>{}}catch(e){}}
+render();
+</script>
